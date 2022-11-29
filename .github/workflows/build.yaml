@@ -1,0 +1,64 @@
+name: ROS-build-test
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    env:
+      CATKIN_WS: /home/catkin_ws
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup ROS
+      uses: ros-tooling/setup-ros@v0.2
+      with: 
+        required-ros-distributions: noetic
+
+    - name: Install catkin tool
+      run: sudo apt-get install python3-catkin-tools
+
+    - name: Init workspace
+      run: |
+        source /opt/ros/noetic/setup.bash
+        sudo mkdir -p ${CATKIN_WS}/src
+        ln -s ${GITHUB_WORKSPACE} ${CATKIN_WS}/src/
+
+    - name: pre build
+      run: |
+        source /opt/ros/noetic/setup.bash
+        cd ${CATKIN_WS}/src/livox_camera_lidar_calibration
+        git submodule update --init --recursive
+        rosdep update
+        rosdep install -i -y --from-paths ./
+
+    - name: install ceres-solver
+      run: |
+        sudo apt-get install cmake
+        sudo apt-get install libgoogle-glog-dev libgflags-dev
+        sudo apt-get install libatlas-base-dev
+        sudo apt-get install libeigen3-dev
+        sudo apt-get install libsuitesparse-dev
+        wget http://ceres-solver.org/ceres-solver-2.1.0.tar.gz
+        sudo tar zxf ceres-solver-2.1.0.tar.gz
+        sudo mkdir ceres-bin
+        cd ceres-bin
+        sudo cmake ../ceres-solver-2.1.0
+        sudo make -j3
+        sudo make test
+        sudo make install
+
+    - name: install eigen
+      run: |
+        wget https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
+        sudo tar zxf eigen-3.4.0.tar.gz
+        sudo cp -r eigen-3.4.0/Eigen/ /usr/local/include/eigen3
+
+    - name: build
+      run: |
+        source /opt/ros/noetic/setup.bash
+        cd ${CATKIN_WS}
+        sudo apt-get install libpcl-dev
+        sudo apt-get install ros-noetic-pcl-conversions
+        sudo apt-get install ros-noetic-pcl-ros
+        catkin build
