@@ -1,4 +1,4 @@
-name: ROS-build-test
+name: ROS-noetic-build-test
 
 on: [push]
 
