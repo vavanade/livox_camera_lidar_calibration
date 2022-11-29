@@ -1,5 +1,4 @@
-[![ROS-build-test](https://github.com/CIT-Autonomous-Robot-Lab/livox_camera_lidar_calibration/actions/workflows/build.yaml/badge.svg)](https://github.com/CIT-Autonomous-Robot-Lab/livox_camera_lidar_calibration/actions/workflows/build.yaml)
-
+[![ROS-noetic-build-test](https://github.com/CIT-Autonomous-Robot-Lab/livox_camera_lidar_calibration/actions/workflows/build.yaml/badge.svg)](https://github.com/CIT-Autonomous-Robot-Lab/livox_camera_lidar_calibration/actions/workflows/build.yaml)
 [中文文档](doc_resources/README_cn.md)
 
 ## Camera-LiDAR-Calibration Manual
