@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-  
-    <param name="intrinsic_path"        value="$(find camera_lidar_calibration)/../../data/parameters/intrinsic.txt" />  <!-- intrinsic file -->
-    <param name="extrinsic_path"        value="$(find camera_lidar_calibration)/../../data/parameters/extrinsic.txt" />  <!-- extrinsic file -->
-  
-    <param name="input_bag_path"        value="$(find camera_lidar_calibration)/../../data/lidar/0.bag" />  <!-- rosbag to give the lidar info -->
-    <param name="input_photo_path"      value="$(find camera_lidar_calibration)/../../data/photo/0.bmp" />  <!-- photo to get RGB info -->
 
-    <param name="threshold_lidar"       type="int" value="80" />  <!-- the limit of messages to transfer to the pcd file, 80 means maximum 80 messages of lidar -->
+    <arg name="intrinsic_path"        default="$(find camera_lidar_calibration)/../../data/parameters/intrinsic.txt" />
+    <arg name="extrinsic_path"        default="$(find camera_lidar_calibration)/../../data/parameters/extrinsic.txt" />
+    <arg name="input_bag_path"        default="$(find camera_lidar_calibration)/../../data/lidar/0.bag" />
+    <arg name="input_photo_path"      default="$(find camera_lidar_calibration)/../../data/photo/0.bmp" />
+    <arg name="threshold_lidar"       default="80" />
+
+  
+    <param name="intrinsic_path"        value="$(arg intrinsic_path)" />  <!-- intrinsic file -->
+    <param name="extrinsic_path"        value="$(arg extrinsic_path)" />  <!-- extrinsic file -->
+  
+    <param name="input_bag_path"        value="$(arg input_bag_path)" />  <!-- rosbag to give the lidar info -->
+    <param name="input_photo_path"      value="$(arg input_photo_path)" />  <!-- photo to get RGB info -->
+
+    <param name="threshold_lidar"       type="int" value="$(arg threshold_lidar)" />  <!-- the limit of messages to transfer to the pcd file, 80 means maximum 80 messages of lidar -->
     
   <node pkg="camera_lidar_calibration" name="colorLidar" type="colorLidar" output="screen"></node>
   

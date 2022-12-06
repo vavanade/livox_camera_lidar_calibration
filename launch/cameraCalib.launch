@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-    <param name="camera_in_path"        value="$(find camera_lidar_calibration)/../../data/camera/in.txt" />  <!-- the file to contain all the photos -->
-    <param name="camera_folder_path"    value="$(find camera_lidar_calibration)/../../data/camera/photos/" />  <!-- the file to contain all the photos -->
-    <param name="result_path"           value="$(find camera_lidar_calibration)/../../data/camera/result.txt" />  <!-- the file to save the intrinsic data -->
+    <arg name="camera_in_path"        default="$(find camera_lidar_calibration)/../../data/camera/in.txt"/>
+    <arg name="camera_folder_path"    default="$(find camera_lidar_calibration)/../../data/camera/photos/" />
+    <arg name="result_path"           default="$(find camera_lidar_calibration)/../../data/camera/result.txt" />
+    <arg name="row_number"            default="9" />
+    <arg name="col_number"            default="6" />
+    <arg name="width"                 default="20" />
+    <arg name="height"                default="20" />
+
+	    
+    <param name="camera_in_path"        value="$(arg camera_in_path)" />  <!-- the file to contain all the photos -->
+    <param name="camera_folder_path"    value="$(arg camera_folder_path)" />  <!-- the file to contain all the photos -->
+    <param name="result_path"           value="$(arg result_path)" />  <!-- the file to save the intrinsic data -->
     
-    <param name="row_number"            type="int" value="8" />  <!-- the number of block on the row -->
-    <param name="col_number"            type="int" value="6" />  <!-- the number of block on the column -->
-    <param name="width"                 type="int" value="38" />  <!-- the width of each block on the chessboard(mm) -->
-    <param name="height"                type="int" value="38" />  <!-- the height of each block on the chessboard(mm)-->
+    <param name="row_number"            type="int" value="$(arg row_number)" />  <!-- the number of block on the row -->
+    <param name="col_number"            type="int" value="$(arg col_number)" />  <!-- the number of block on the column -->
+    <param name="width"                 type="int" value="$(arg width)" />  <!-- the width of each block on the chessboard(mm) -->
+    <param name="height"                type="int" value="$(arg height)" />  <!-- the height of each block on the chessboard(mm)-->
     
     <node pkg="camera_lidar_calibration" name="cameraCalib" type="cameraCalib" output="screen"></node>
 

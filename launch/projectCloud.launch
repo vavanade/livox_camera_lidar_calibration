@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-  
-    <param name="intrinsic_path"        value="$(find camera_lidar_calibration)/../../data/parameters/intrinsic.txt" />  <!-- intrinsic file -->
-    <param name="extrinsic_path"        value="$(find camera_lidar_calibration)/../../data/parameters/extrinsic.txt" />  <!-- extrinsic file -->
-    
-    <param name="input_bag_path"        value="$(find camera_lidar_calibration)/../../data/lidar/0.bag" />  <!-- rosbag file -->
-    <param name="input_photo_path"      value="$(find camera_lidar_calibration)/../../data/photo/0.bmp" />  <!-- photo file -->
-    <param name="output_path"           value="$(find camera_lidar_calibration)/../../data/projection/new.bmp" />  <!-- path to save new photo file -->
+    <arg name="intrinsic_path"        default="$(find camera_lidar_calibration)/../../data/parameters/intrinsic.txt" />
+    <arg name="extrinsic_path"        default="$(find camera_lidar_calibration)/../../data/parameters/extrinsic.txt" />  
+    <arg name="input_bag_path"        default="$(find camera_lidar_calibration)/../../data/lidar/0.bag" /> 
+    <arg name="input_photo_path"      default="$(find camera_lidar_calibration)/../../data/photo/0.png" />  
+    <arg name="output_path"           default="$(find camera_lidar_calibration)/../../data/projection/new.bmp" />  
+    <arg name="threshold_lidar"       default="30000" />  
 
-    <param name="threshold_lidar"       type="int" value="30000" />  <!-- the maximum points shown on the photo -->
+  
+    <param name="intrinsic_path"        value="$(arg intrinsic_path)" />  <!-- intrinsic file -->
+    <param name="extrinsic_path"        value="$(arg extrinsic_path)" />  <!-- extrinsic file -->
+    
+    <param name="input_bag_path"        value="$(arg input_bag_path)" />  <!-- rosbag file -->
+    <param name="input_photo_path"      value="$(arg input_photo_path)" />  <!-- photo file -->
+    <param name="output_path"           value="$(arg output_path)" />  <!-- path to save new photo file -->
+
+    <param name="threshold_lidar"       type="int" value="$(arg threshold_lidar)" />  <!-- the maximum points shown on the photo -->
 
     <node pkg="camera_lidar_calibration" name="projectCloud" type="projectCloud" output="screen"></node>
 
