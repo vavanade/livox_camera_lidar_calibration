@@ -29,8 +29,8 @@ void getParameters() {
         cout << "Can not get the value of input_photo_folder_path" << endl;
         exit(1);
     }
-    if (!ros::param::get("ouput_path", output_name)) {
-        cout << "Can not get the value of ouput_path" << endl;
+    if (!ros::param::get("output_path", output_name)) {
+        cout << "Can not get the value of output_path" << endl;
         exit(1);
     }
     if (!ros::param::get("intrinsic_path", intrinsic_path)) {
